@@ -6,6 +6,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>TODO write content</div>
+        <!-- 1 Sección para crear el boton de agregar-->
+<section th:fragment="botonesAgregar" class="py-4 mt-4">
+
+    <div class="container d-flex justify-content-end">
+
+
+        <div class="row">
+            <div class="col-md-3">
+                <a th:href="@{/entrenamiento/agregar}" class="btn btn-primary btn-block">
+                    <b>Crear</b>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
     </body>
 </html>

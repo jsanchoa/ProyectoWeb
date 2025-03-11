@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class EstadoMembresiaServiceImpl implements EstadoMembresiaService{
-    
     @Autowired
     private EstadoMembresiaDao estadoMembresiaDao;
 

@@ -16,10 +16,6 @@ public class Membresia implements Serializable {
     private Long idMembresia;
     private String nombre;
     
-    @ManyToOne
-    @JoinColumn(name = "id_estado_membresia")
-    private EstadoMembresia estadoMembresia;
-    
     public Membresia() {
     }
     

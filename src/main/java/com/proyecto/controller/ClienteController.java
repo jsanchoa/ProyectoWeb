@@ -1,11 +1,11 @@
 package com.proyecto.controller;
 
 import com.proyecto.domain.Cliente;
-import com.proyecto.domain.EstadoMembresia;
 import com.proyecto.domain.Membresia;
 import com.proyecto.domain.Estado;
 import com.proyecto.service.ClienteService;
 import com.proyecto.service.MembresiaService;
+import com.proyecto.domain.EstadoMembresia;
 import com.proyecto.service.EstadoMembresiaService;
 import com.proyecto.service.EstadoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class ClienteController {
     
     @RequestMapping("/listado")
     public String index(Model model) {
-        List<Cliente> listaClientes = clienteService.getCliente();
+        List<Cliente> listaClientes = clienteService.getClientes(false);
 
         model.addAttribute("clientes", listaClientes);
         return "/cliente/listado";
@@ -76,6 +76,7 @@ public class ClienteController {
         List<Estado> listaEstados = estadoService.getListaEstados();
         model.addAttribute("membresias", listaMembresias);
         model.addAttribute("estadoMembresias", listaEstadoMembresias);
+        model.addAttribute("estados", listaEstados);
         model.addAttribute("cliente", cliente);
 
         return "/cliente/modifica";

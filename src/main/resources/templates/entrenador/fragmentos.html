@@ -1,11 +1,215 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<head>
+    <title>TODO supply a title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<!-- 1 Sección para crear el boton de agregar-->
+<section th:fragment="botonesAgregar" class="py-4 mt-4">
+
+    <div class="container d-flex justify-content-end">
+
+
+        <div class="row">
+            <div class="col-md-3">
+                <a th:href="@{/entrenadores/agregar}" class="btn btn-primary btn-block">
+                    <b>Crear</b>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Sección principal para mostrar la información de los entrenadores -->
+<section th:fragment="listaEntrenadores">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10"> 
+                <div class="card">
+                    <div class="card-header">
+                    </div>
+                    <div th:if="${entrenadores != null and !entrenadores.empty}">
+                        <div class="table-responsive"> 
+                            <table class="table table-striped table-hover">
+                                <thead class="table-dark">
+                                <tr>
+                                    <th class="text-center">Nombre</th>
+                                    <th class="text-center">Correo</th>
+                                    <th class="text-center">Teléfono</th>
+                                    <th class="text-center">Especialidad</th>
+                                    <th class="text-center">Estado</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="entrenador : ${entrenadores}">
+                                    <td class="text-center">[[${entrenador.nombre}]]</td>
+                                    <td class="text-center">[[${entrenador.correo}]]</td>
+                                    <td class="text-center">[[${entrenador.telefono}]]</td>
+                                    <td class="text-center">[[${entrenador.especialidad.nombre}]]</td>
+                                    <td class="text-center">[[${entrenador.estado.nombre}]]</td>
+                                    <td class="d-flex justify-content-center">
+                                        <a th:href="@{/entrenadores/modificar/}+${entrenador.idEntrenador}"
+                                           class="btn btn-success me-2 ms-2">
+                                            <i class="fas fa-pencil"></i></a>
+                                        <a th:href="@{/entrenadores/eliminar/}+${entrenador.idEntrenador}"
+                                           class="btn btn-danger me-2 ms-2">
+                                            <i class="fas fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="text-center p-2" th:if="${entrenadores == null or entrenadores.empty}">
+                        <span>Lista Vacía</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section th:fragment="agregarEntrenador">
+    <div class="form-container mt-5 p-5">
+        <h2 style="text-align: center" class="mb-5">Registrar Entrenador</h2>
+        <form method="POST"
+              th:action="@{/entrenadores/guardar}"
+              th:object="${entrenador}"
+              class="was-validated"
+              enctype="multipart/form-data">
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="cedula" class="form-label">Cédula</label>
+                    <input type="text" class="form-control"
+                           name="cedula" th:field="*{cedula}" id="cedula" placeholder="Ingrese su cédula">
+                </div>
+                <div class="col">
+                    <label for="nombre" class="form-label">Nombre completo</label>
+                    <input type="text" name="nombre" th:field="*{nombre}" class="form-control" id="nombre"
+                           placeholder="Ingrese su nombre">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="correo" class="form-label">Correo electrónico</label>
+                    <input type="email" name="correo" th:field="*{correo}" class="form-control" id="correo"
+                           placeholder="Ingrese su correo">
+                </div>
+                <div class="col">
+                    <label for="telefono" class="form-label">Número de teléfono</label>
+                    <input type="tel" name="telefono" th:field="*{telefono}" class="form-control" id="telefono"
+                           placeholder="Ingrese su teléfono">
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="especialidad" class="form-label">Especialidad</label>
+                <select class="form-select" th:field="*{especialidad}">
+                    <option value="" selected>Seleccione una opción</option>
+                    <option th:each="especialidad : ${especialidades}"
+                            th:value="${especialidad.idEspecialidad}"
+                            th:text="${especialidad.nombre}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="estados" class="form-label">Estado</label>
+                <select class="form-select" th:field="*{estado}">
+                    <option value="" selected>Seleccione una opción</option>
+                    <option th:each="estado : ${estados}"
+                            th:value="${estado.idEstado}"
+                            th:text="${estado.nombre}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-dark">Registrar</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section th:fragment="modificarEntrenador">
+    <div class="form-container mt-5 p-5">
+        <h2 style="text-align: center" class="mb-5">Modificar Entrenador</h2>
+        <form method="POST"
+              th:action="@{/entrenadores/guardar}"
+              th:object="${entrenador}"
+              class="was-validated"
+              enctype="multipart/form-data">
+            <input type="hidden" name="idEntrenador" th:field="*{idEntrenador}"/>
+            <input type="hidden" th:field="*{cedula}">
+            <input type="hidden" th:field="*{especialidad.idEspecialidad}">
+            <div class="row mb-3">
+                <fieldset disabled>
+                    <div class="col">
+                        <label for="cedula" class="form-label">Cedula</label>
+                        <input type="text" name="cedula" th:field="*{cedula}" class="form-control" id="cedula">
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="nombre" class="form-label">Nombre completo</label>
+                    <input type="text" name="nombre" th:field="*{nombre}" class="form-control" id="nombre"
+                           placeholder="Ingrese su nombre">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="correo" class="form-label">Correo electrónico</label>
+                    <input type="email" name="correo" th:field="*{correo}" class="form-control" id="correo"
+                           placeholder="Ingrese su correo">
+                </div>
+                <div class="col">
+                    <label for="telefono" class="form-label">Número de teléfono</label>
+                    <input type="tel" name="telefono" th:field="*{telefono}" class="form-control" id="telefono"
+                           placeholder="Ingrese su teléfono">
+                </div>
+            </div>
+
+
+            <div class="mb-3">
+                <fieldset disabled>  <!-- Deshabilita la selección -->
+                    <label for="especialidad" class="form-label">Especialidad</label>
+                    <select class="form-select" id="especialidad" th:field="*{especialidad.idEspecialidad}">
+                        <option th:each="especialidad : ${especialidades}"
+                                th:value="${especialidad.idEspecialidad}"
+                                th:text="${especialidad.nombre}">
+                        </option>
+                    </select>
+                </fieldset>
+                <!-- Campo oculto para enviar el valor de la especialidad seleccionada -->
+                <input type="hidden" th:field="*{especialidad.idEspecialidad}">
+            </div>
+
+
+            <div class="mb-3">
+                <label for="estados" class="form-label">Estado</label>
+                <select class="form-select" th:field="*{estado}">
+                    <option value="" selected>Seleccione una opción</option>
+                    <option th:each="estado : ${estados}"
+                            th:value="${estado.idEstado}"
+                            th:text="${estado.nombre}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-dark">Modificar</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+</body>
 </html>

@@ -1,9 +1,10 @@
 package com.proyecto.service;
-package com.proyecto.domain.Entrenador;
+
+import com.proyecto.domain.Entrenador;
 import java.util.List;
 
-public class EntrenadorService {
-    public List<Entrenador> getEntrenador();
+public interface EntrenadorService {
+    public List<Entrenador> getEntrenador(boolean activos);
     
     public Entrenador getEntrenador(Entrenador entrenador);
     

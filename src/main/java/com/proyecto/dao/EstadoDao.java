@@ -1,8 +1,12 @@
 package com.proyecto.dao;
-package com.proyecto.domain.Entrenamiento;
+
+import com.proyecto.domain.Estado;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 // Conector entre el codigo y la base de datos
-public interface EntrenamientoDao extends JpaRepository<Entrenamiento, int> {
+public interface EstadoDao extends JpaRepository<Estado, Long> {
 
 }
+
+
+

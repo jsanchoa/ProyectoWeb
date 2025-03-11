@@ -1,8 +1,9 @@
 package com.proyecto.service;
-package com.proyecto.domain.Cita;
+
+import com.proyecto.domain.Cita;
 import java.util.List;
 
-public class CitaService {
+public interface CitaService {
     public List<Cita> getCita();
     
     public Cita getCita(Cita cita);

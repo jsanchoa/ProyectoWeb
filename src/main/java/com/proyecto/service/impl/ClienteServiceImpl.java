@@ -1,8 +1,9 @@
 package com.proyecto.service.impl;
-package com.proyecto.dao.ClienteDao;
-package com.proyecto.domain.Cliente;
-package com.proyecto.service.ClienteService;
+import com.proyecto.dao.ClienteDao;
+import com.proyecto.domain.Cliente;
+import com.proyecto.service.ClienteService;
 import java.util.List;
+import com.proyecto.dao.ClienteDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,20 +15,20 @@ public class ClienteServiceImpl implements ClienteService{
 
     @Override
     @Transactional(readOnly = true)
-    public List<Cliente> getCliente(boolean activos) {
-        var listaClientes = clienteDao.findAll();
+    public List<Cliente> getClientes(boolean activos) {
+        var lista = clienteDao.findAll();
         if (activos) {
-            listaClientes.removeIf(e -> !e.isActivo());
+            lista.removeIf(e -> e.getEstado().getIdEstado() == 2);
         }
-        return listaClientes;
+        return lista;
     }
-    
+
     @Override
     @Transactional(readOnly = true)
     public Cliente getCliente(Cliente cliente) {
-        return clienteDao.findById(acceso.getIdCliente()).orElse(null);
+        return clienteDao.findById(cliente.getIdCliente()).orElse(null);
     }
-    
+
     @Override
     @Transactional
     public void save(Cliente cliente) {

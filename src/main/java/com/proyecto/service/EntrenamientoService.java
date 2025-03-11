@@ -1,10 +1,16 @@
 package com.proyecto.service;
-package com.proyecto.domain.Entrenamiento;
+
+import com.proyecto.domain.Entrenamiento;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
-public class EntrenamientoService {
+public interface EntrenamientoService {
     public List<Entrenamiento> getEntrenamiento();
-    
+
+    @Transactional(readOnly = true)
+    List<Entrenamiento> getEntrenamiento(boolean activos);
+
     public Entrenamiento getEntrenamiento(Entrenamiento entrenamiento);
     
     public void save(Entrenamiento entrenamiento);

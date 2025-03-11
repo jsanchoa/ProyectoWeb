@@ -6,6 +6,234 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>TODO write content</div>
+        <!-- 1 Sección para crear el boton de agregar-->
+        <section th:fragment="botonesAgregar" class="py-4 mt-4">
+
+            <div class="container d-flex justify-content-end">
+
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <a th:href="@{/clientes/agregar}" class="btn btn-primary btn-block">
+                            <b>Crear</b>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección principal para mostrar la información de los clientes -->
+        <section th:fragment="listaClientes">
+            <div class="container mt-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10"> 
+                        <div class="card">
+                            <div class="card-header">
+                            </div>
+                            <div th:if="${clientes != null and !clientes.empty}">
+                                <div class="table-responsive"> 
+                                    <table class="table table-striped table-hover">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th class="text-center">Cedula</th>
+                                                <th class="text-center">Nombre</th>
+                                                <th class="text-center">Correo</th>
+                                                <th class="text-center">Teléfono</th>
+                                                <th class="text-center">Tipo de Membresía</th>
+                                                <th class="text-center">Estado de Membresía</th>
+                                                <th class="text-center">Estado</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="cliente : ${clientes}">
+                                                <td class="text-center">[[${cliente.cedula}]]</td>
+                                                <td class="text-center">[[${cliente.nombre}]]</td>
+                                                <td class="text-center">[[${cliente.correo}]]</td>
+                                                <td class="text-center">[[${cliente.telefono}]]</td>
+                                                <td class="text-center">[[${cliente.membresia.nombre}]]</td>
+                                                <td class="text-center">[[${cliente.estadoMembresia.nombre}]]</td>
+                                                <td class="d-flex justify-content-center">
+                                                    <a th:href="@{/clientes/modificar/}+${cliente.idCliente}"
+                                                       class="btn btn-success me-2 ms-2">
+                                                        <i class="fas fa-pencil"></i></a>
+                                                    <a th:href="@{/clientes/eliminar/}+${cliente.idCliente}"
+                                                       class="btn btn-danger me-2 ms-2">
+                                                        <i class="fas fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="text-center p-2" th:if="${clientes == null or clientes.empty}">
+                                <span>Lista Vacía</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section th:fragment="agregarCliente">
+            <div class="form-container mt-5 p-5">
+                <h2 style="text-align: center" class="mb-5">Registrar Cliente</h2>
+                <form method="POST"
+                      th:action="@{/clientes/guardar}"
+                      th:object="${cliente}"
+                      class="was-validated"
+                      enctype="multipart/form-data">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="cedula" class="form-label">Número de cedula</label>
+                            <input type="text" name="cedula" th:field="*{cedula}" class="form-control" id="cedula"
+                                   placeholder="Ingrese su cedula">
+                        </div>
+                        <div class="col">
+                            <label for="nombre" class="form-label">Nombre completo</label>
+                            <input type="text" name="nombre" th:field="*{nombre}" class="form-control" id="nombre"
+                                   placeholder="Ingrese su nombre">
+                        </div>
+                        <div class="col">
+                            <label for="correo" class="form-label">Correo Electronico</label>
+                            <input type="text" class="form-control"
+                                   name="correo" th:field="*{correo}" id="correo" placeholder="Ingrese su correo electronico">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="telefono" class="form-label">Número de teléfono</label>
+                            <input type="tel" name="telefono" th:field="*{telefono}" class="form-control" id="telefono"
+                                   placeholder="Ingrese su teléfono">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="membresia" class="form-label">Tipo de Membresía</label>
+                        <select class="form-select" th:field="*{membresia}">
+                            <option value="" selected>Seleccione una opción</option>
+                            <option th:each="membresia : ${membresias}"
+                                    th:value="${membresia.idMembresia}"
+                                    th:text="${membresia.nombre}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="estadoMembresia" class="form-label">Estado de Membresía</label>
+                        <select class="form-select" th:field="*{estadoMembresia}">
+                            <option value="" selected>Seleccione una opción</option>
+                            <option th:each="estadoMembresia : ${estadoMembresias}"
+                                    th:value="${estadoMembresia.idEstadoMembresia}"
+                                    th:text="${estadoMembresia.nombre}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="estados" class="form-label">Estado</label>
+                        <select class="form-select" th:field="*{estado}">
+                            <option value="" selected>Seleccione una opción</option>
+                            <option th:each="estado : ${estados}"
+                                    th:value="${estado.idEstado}"
+                                    th:text="${estado.nombre}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-dark">Registrar</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <section th:fragment="modificarCliente">
+            <div class="form-container mt-5 p-5">
+                <h2 style="text-align: center" class="mb-5">Modificar Cliente</h2>
+                <form method="POST"
+                      th:action="@{/clientes/guardar}"
+                      th:object="${cliente}"
+                      class="was-validated"
+                      enctype="multipart/form-data">
+                    <input type="hidden" name="idCliente" th:field="*{idCliente}"/>
+                    <input type="hidden" th:field="*{cedula}">
+                    <input type="hidden" th:field="*{membresia.idMembresia}">
+                    <input type="hidden" th:field="*{estadoMembresia.idEstadoMembresia}">
+                    <div class="row mb-3">
+                        <fieldset disabled>
+                            <div class="col">
+                                <label for="cedula" class="form-label">Cedula</label>
+                                <input type="text" name="cedula" th:field="*{cedula}" class="form-control" id="cedula">
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="nombre" class="form-label">Nombre completo</label>
+                            <input type="text" name="nombre" th:field="*{nombre}" class="form-control" id="nombre"
+                                   placeholder="Ingrese su nombre">
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="correo" class="form-label">Correo electrónico</label>
+                            <input type="email" name="correo" th:field="*{correo}" class="form-control" id="correo"
+                                   placeholder="Ingrese su correo">
+                        </div>
+                        <div class="col">
+                            <label for="telefono" class="form-label">Número de teléfono</label>
+                            <input type="tel" name="telefono" th:field="*{telefono}" class="form-control" id="telefono"
+                                   placeholder="Ingrese su teléfono">
+                        </div>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <fieldset disabled>  <!-- Deshabilita la selección -->
+                            <label for="membresia" class="form-label">Tipo de Membresía</label>
+                            <select class="form-select" id="membresia" th:field="*{membresia.idMembresia}">
+                                <option th:each="membresia : ${membresias}"
+                                        th:value="${membresia.idMembresia}"
+                                        th:text="${membresia.nombre}">
+                                </option>
+                            </select>
+                        </fieldset>
+                    </div>
+                    <div class="mb-3">
+                        <fieldset disabled>  <!-- Deshabilita la selección -->
+                            <label for="estadoMembresia" class="form-label">Estado de Membresía</label>
+                            <select class="form-select" id="estadoMembresia" th:field="*{estadoMembresia.idEstadoMembresia}">
+                                <option th:each="estadoMembresia : ${estadoMembresias}"
+                                        th:value="${estadoMembresia.idEstadoMembresia}"
+                                        th:text="${estadoMembresia.nombre}">
+                                </option>
+                            </select>
+                        </fieldset>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <fieldset disabled>
+                        <label for="estados" class="form-label">Estado</label>
+                        <select class="form-select" th:field="*{estado}">
+                            <option value="" selected>Seleccione una opción</option>
+                            <option th:each="estado : ${estados}"
+                                    th:value="${estado.idEstado}"
+                                    th:text="${estado.nombre}">
+                            </option>
+                        </select>
+                        </fieldset>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-dark">Modificar</button>
+                    </div>
+                </form>
+            </div>
+        </section>
     </body>
 </html>

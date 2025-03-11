@@ -1,10 +1,11 @@
 package com.proyecto.service;
-package com.proyecto.domain.Cliente;
+
+import com.proyecto.domain.Cliente;
 import java.util.List;
 
-public class ClienteService {
+public interface ClienteService {
     
-    public List<Cliente> getCliente();
+    public List<Cliente> getClientes(boolean activo);
     
     public Cliente getCliente(Cliente cliente);
     

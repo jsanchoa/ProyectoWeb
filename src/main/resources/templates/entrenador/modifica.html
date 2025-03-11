@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="layout/plantilla :: head"></head>
+<body>
+<header th:replace="layout/plantilla :: header"></header>
+<section>
+    <nav aria-label="breadcrumb" class="mt-3 ms-5">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{/entrenadores/listado}">Entrenadores</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Modificar</li>
+        </ol>
+    </nav>
+</section>
+<section th:replace="entrenador/fragmentos :: modificarEntrenador"></section>
+</body>
+</html>

@@ -13,13 +13,11 @@ public class ClienteServiceImpl implements ClienteService{
     @Autowired
     private ClienteDao clienteDao;
 
+
     @Override
     @Transactional(readOnly = true)
-    public List<Cliente> getClientes(boolean activos) {
+    public List<Cliente> getCliente() {
         var lista = clienteDao.findAll();
-        if (activos) {
-            lista.removeIf(e -> e.getEstado().getIdEstado() == 2);
-        }
         return lista;
     }
 

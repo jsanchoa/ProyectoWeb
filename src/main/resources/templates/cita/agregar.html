@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="layout/plantilla :: head"></head>
+<body>
+    <header th:replace="layout/plantilla :: header"></header>
+    <nav aria-label="breadcrumb" class="mt-3 ms-5">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{/citas/listado}">Citas</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Registrar</li>
+        </ol>
+    </nav>
+    <section th:replace="cita/fragmentos :: agregarCita"></section>
+</body>
+</html>

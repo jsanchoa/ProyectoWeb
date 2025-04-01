@@ -13,19 +13,21 @@ public class Cita implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_cita")
-    
     private long idCita;
-    
+
     @ManyToOne
     @JoinColumn(name = "id_entrenamiento")
     private Entrenamiento entrenamiento;
-    
+
     @ManyToOne
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
-    
-    public Cita() {
-        
-    }
 
+    @ManyToOne
+    @JoinColumn(name = "id_estado")
+    private Estado estado;
+
+    public Cita() {
+    }
+    
 }

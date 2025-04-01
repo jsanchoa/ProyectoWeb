@@ -1,14 +1,85 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
 package com.proyecto.controller;
+import com.proyecto.domain.Cliente;
+import com.proyecto.domain.Cita;
+import com.proyecto.domain.Entrenamiento;
+import com.proyecto.domain.Estado;
+import com.proyecto.service.ClienteService;
+import com.proyecto.service.CitaService;
+import com.proyecto.service.EntrenamientoService;
+import com.proyecto.service.EstadoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import java.util.List;
 
-/**
- *
- * @author PC
- */
+@Controller
+@RequestMapping("/citas") //Prefijo
 public class CitaController {
 
+
+    @Autowired
+    private CitaService citaService;
+
+    @Autowired
+    private ClienteService clienteService;
+
+    @Autowired
+    private EntrenamientoService entrenamientoService;
+
+    @Autowired
+    private EstadoService estadoService;
+
+    @RequestMapping("/listado")
+    public String index(Model model) {
+        List<Cita> listaCitas = citaService.getCita();
+
+        model.addAttribute("citas", listaCitas);
+        return "/cita/listado";
+    }
+
+    @RequestMapping("/agregar")
+    public String citaAgregar(Model model) {
+        model.addAttribute("cita", new Cita());
+
+        List<Cliente> listaClientes = clienteService.getClientes(false);
+        List<Entrenamiento> listaEntrenamientos = entrenamientoService.getEntrenamiento(false);
+        List<Estado> listaEstados = estadoService.getListaEstados();
+
+        model.addAttribute("clientes", listaClientes);
+        model.addAttribute("entrenamientos", listaEntrenamientos);
+        model.addAttribute("estados", listaEstados);
+
+        return "/cita/agregar";
+    }
+
+    @PostMapping("/guardar")
+    public String citaGuardar(Cita cita) {
+        citaService.save(cita);
+        return "redirect:/cita/listado";
+    }
+
+    @GetMapping("/eliminar/{idCita}")
+    public String clienteEliminar(Cita cita) {
+        citaService.delete(cita);
+        return "redirect:/cita/listado";
+    }
+
+    @GetMapping("/modificar/{idCita}")
+    public String clienteModifica(Cita cita, Model model) {
+
+        cita = citaService.getCita(cita);
+        List<Cliente> listaClientes = clienteService.getClientes(true);
+        List<Entrenamiento> listaEntrenamientos = entrenamientoService.getEntrenamiento(true);
+        List<Estado> listaEstados = estadoService.getListaEstados();
+
+        model.addAttribute("clientes", listaClientes);
+        model.addAttribute("entrenamientos", listaEntrenamientos);
+        model.addAttribute("estados", listaEstados);
+
+        return "/cita/modifica";
+    }
 }

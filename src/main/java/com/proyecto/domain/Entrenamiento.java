@@ -9,11 +9,12 @@ import java.io.Serializable;
 @Entity
 @Table(name= "entrenamiento")
 public class Entrenamiento implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_entrenamiento")
-
     private long idEntrenamiento;
+
     private int capacidadEntrenamiento;
     
     @ManyToOne

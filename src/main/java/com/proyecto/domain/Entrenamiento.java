@@ -14,20 +14,35 @@ public class Entrenamiento implements Serializable {
     @Column(name = "id_entrenamiento")
 
     private long idEntrenamiento;
-    private String tipoEntrenamiento;
-    private String horarioEntrenamiento; //Ejemplo: Lunes (9:00a.m - 11:00a.m)
+    private long idTipoEntrenamiento;
+    private long idHorario; //Ejemplo: Lunes (9:00a.m - 11:00a.m)
     private int capacidadEntrenamiento;
-    private String nombreEntrenadorEntrenamiento; //FK pero toma el valor del formulario de registro, el entrenador debe de estar registrado
+    private long idEntrenador; //FK pero toma el valor del formulario de registro, el entrenador debe de estar registrado
+    
+    @ManyToOne
+    @JoinColumn(name = "id_tipo_entrenamiento")
+    private TipoEntrenamiento tipoEntrenamiento;
+
+    @ManyToOne
+    @JoinColumn(name = "id_horario")
+    private Horario horario;
+    
+    @ManyToOne
+    @JoinColumn(name = "id_entrenador")
+    private Entrenador entrenador;
+
+    @ManyToOne
+    @JoinColumn(name = "id_estado")
+    private Estado estado;
     
     public Entrenamiento() {
     }
     
-    public Entrenamiento(long idEntrenamiento, String tipoEntrenamiento, String horarioEntrenamiento, int capacidadEntrenamiento, String nombreEntrenadorEntrenamiento) {
-        this.idEntrenamiento = idEntrenamiento;
-        this.tipoEntrenamiento = tipoEntrenamiento;
-        this.horarioEntrenamiento = horarioEntrenamiento;
+    public Entrenamiento(long idTipoEntrenamiento, long idHorario, int capacidadEntrenamiento, long idEntrenador) {
+        this.idTipoEntrenamiento = idTipoEntrenamiento;
+        this.idHorario = idHorario;
         this.capacidadEntrenamiento = capacidadEntrenamiento;
-        this.nombreEntrenadorEntrenamiento = nombreEntrenadorEntrenamiento; 
+        this.idEntrenador = idEntrenador; 
     }
     
 }

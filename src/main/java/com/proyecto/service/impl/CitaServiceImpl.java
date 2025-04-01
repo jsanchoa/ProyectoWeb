@@ -16,22 +16,21 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author naoal
  */
+@Service
 public class CitaServiceImpl implements CitaService{
     @Autowired
     private CitaDao citaDao;
     
     @Override
     @Transactional(readOnly = true)
-    public List<Cita> getCita(boolean activos) {
+    public List<Cita> getCita() {
         var lista = citaDao.findAll();
-        if (activos) {
-            lista.removeIf(e -> e.getEstado().getIdEstado() == 2);
-        }
         return lista;
     }
     @Override
     @Transactional(readOnly = true)
     public Cita getCita(Cita cita) {
+
         return citaDao.findById(cita.getIdCita()).orElse(null);
     }
 

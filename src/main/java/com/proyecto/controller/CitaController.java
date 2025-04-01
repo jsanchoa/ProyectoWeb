@@ -59,13 +59,13 @@ public class CitaController {
     @PostMapping("/guardar")
     public String citaGuardar(Cita cita) {
         citaService.save(cita);
-        return "redirect:/cita/listado";
+        return "redirect:/citas/listado";
     }
 
     @GetMapping("/eliminar/{idCita}")
     public String clienteEliminar(Cita cita) {
         citaService.delete(cita);
-        return "redirect:/cita/listado";
+        return "redirect:/citas/listado";
     }
 
     @GetMapping("/modificar/{idCita}")

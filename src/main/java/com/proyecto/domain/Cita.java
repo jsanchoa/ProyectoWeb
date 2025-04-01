@@ -13,7 +13,7 @@ public class Cita implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_cita")
-    private long idCita;
+    private Long idCita;
 
     @ManyToOne
     @JoinColumn(name = "id_entrenamiento")
@@ -29,5 +29,5 @@ public class Cita implements Serializable {
 
     public Cita() {
     }
-    
+
 }

@@ -13,7 +13,7 @@ public class Entrenamiento implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_entrenamiento")
-    private long idEntrenamiento;
+    private Long idEntrenamiento;
 
     private int capacidadEntrenamiento;
     

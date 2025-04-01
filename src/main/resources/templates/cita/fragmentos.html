@@ -80,7 +80,7 @@
 
                     <div class="mb-3">
                         <label for="cliente" class="form-label">Cliente</label>
-                        <select class="form-select" th:field="*{idCliente}">
+                        <select class="form-select" th:field="*{cliente}">
                             <option value="" selected>Seleccione un cliente</option>
                             <option th:each="cliente : ${clientes}"
                                     th:value="${cliente.idCliente}"
@@ -91,18 +91,18 @@
 
                     <div class="mb-3">
                         <label for="entrenamiento" class="form-label">Entrenamiento</label>
-                        <select class="form-select" th:field="*{idEntrenamiento}">
+                        <select class="form-select" th:field="*{entrenamiento}">
                             <option value="" selected>Seleccione un entrenamiento</option>
                             <option th:each="entrenamiento : ${entrenamientos}"
                                     th:value="${entrenamiento.idEntrenamiento}"
-                                    th:text="${entrenamiento.nombre}">
+                                    th:text="${entrenamiento.idEntrenamiento}">
                             </option>
                         </select>
                     </div>
 
                     <div class="mb-3">
                         <label for="estado" class="form-label">Estado</label>
-                        <select class="form-select" th:field="*{idEstado}">
+                        <select class="form-select" th:field="*{estado}">
                             <option value="" selected>Seleccione un estado</option>
                             <option th:each="estado : ${estados}"
                                     th:value="${estado.idEstado}"

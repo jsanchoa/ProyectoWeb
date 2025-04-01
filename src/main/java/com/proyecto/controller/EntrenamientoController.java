@@ -51,13 +51,13 @@ public class EntrenamientoController {
     @PostMapping("/guardar")
     public String guardarEntrenamiento(Entrenamiento entrenamiento) {
         entrenamientoService.save(entrenamiento);
-        return "redirect:/entrenamiento/listado";
+        return "redirect:/entrenamientos/listado";
     }
 
     @GetMapping("/eliminar/{idEntrenamiento}")
     public String eliminarEntrenamiento(Entrenamiento entrenamiento) {
         entrenamientoService.delete(entrenamiento);
-        return "redirect:/entrenamiento/listado";
+        return "redirect:/entrenamientos/listado";
     }
 
     @GetMapping("/modificar/{idEntrenamiento}")
@@ -71,6 +71,6 @@ public class EntrenamientoController {
         model.addAttribute("estados", listaEstados);
         model.addAttribute("entrenamiento", entrenamiento);
 
-        return "entrenamiento/modificar";
+        return "entrenamiento/modifica";
     }
 }

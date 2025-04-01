@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface EntrenamientoService {
-    public List<Entrenamiento> getEntrenamiento();
 
     @Transactional(readOnly = true)
     List<Entrenamiento> getEntrenamiento(boolean activos);

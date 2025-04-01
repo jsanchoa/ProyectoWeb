@@ -72,10 +72,11 @@ public class CitaController {
     public String clienteModifica(Cita cita, Model model) {
 
         cita = citaService.getCita(cita);
-        List<Cliente> listaClientes = clienteService.getClientes(true);
-        List<Entrenamiento> listaEntrenamientos = entrenamientoService.getEntrenamiento(true);
+        List<Cliente> listaClientes = clienteService.getClientes(false);
+        List<Entrenamiento> listaEntrenamientos = entrenamientoService.getEntrenamiento(false);
         List<Estado> listaEstados = estadoService.getListaEstados();
 
+        model.addAttribute("citas", cita);
         model.addAttribute("clientes", listaClientes);
         model.addAttribute("entrenamientos", listaEntrenamientos);
         model.addAttribute("estados", listaEstados);

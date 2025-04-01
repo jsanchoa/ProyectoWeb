@@ -129,13 +129,13 @@
               th:action="@{/citas/guardar}"
               th:object="${cita}"
               class="was-validated">
-            
-            <input type="hidden" name="idCita" th:field="*{idCita}"/>
+
+            <input type="hidden" th:field="*{cliente.nombre}">
 
             <div class="mb-3">
                 <fieldset disabled>
                     <label for="cliente" class="form-label">Cliente</label>
-                    <select class="form-select" id="cliente" th:field="*{idCliente}">
+                    <select class="form-select" id="cliente" th:field="*{cliente}">
                         <option th:each="cliente : ${clientes}"
                                 th:value="${cliente.idCliente}"
                                 th:text="${cliente.nombre}">
@@ -146,18 +146,18 @@
 
             <div class="mb-3">
                 <label for="entrenamiento" class="form-label">Entrenamiento</label>
-                <select class="form-select" th:field="*{idEntrenamiento}">
+                <select class="form-select" th:field="*{entrenamiento}">
                     <option value="" selected>Seleccione un entrenamiento</option>
                     <option th:each="entrenamiento : ${entrenamientos}"
                             th:value="${entrenamiento.idEntrenamiento}"
-                            th:text="${entrenamiento.nombre}">
+                            th:text="${entrenamiento.horario.horario}">
                     </option>
                 </select>
             </div>
 
             <div class="mb-3">
                 <label for="estado" class="form-label">Estado</label>
-                <select class="form-select" th:field="*{idEstado}">
+                <select class="form-select" th:field="*{estado}">
                     <option value="" selected>Seleccione un estado</option>
                     <option th:each="estado : ${estados}"
                             th:value="${estado.idEstado}"

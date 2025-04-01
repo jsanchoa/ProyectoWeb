@@ -70,6 +70,7 @@ public class EntrenadorController {
         entrenador = entrenadorService.getEntrenador(entrenador);
         List<Especialidad> listaEspecialidades = especialidadService.getListaEspecialidades();
         List<Estado> listaEstados = estadoService.getListaEstados();
+
         model.addAttribute("especialidades", listaEspecialidades);
         model.addAttribute("estados", listaEstados);
         model.addAttribute("entrenador", entrenador);

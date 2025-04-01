@@ -76,7 +76,7 @@ public class CitaController {
         List<Entrenamiento> listaEntrenamientos = entrenamientoService.getEntrenamiento(false);
         List<Estado> listaEstados = estadoService.getListaEstados();
 
-        model.addAttribute("citas", cita);
+        model.addAttribute("cita", cita);
         model.addAttribute("clientes", listaClientes);
         model.addAttribute("entrenamientos", listaEntrenamientos);
         model.addAttribute("estados", listaEstados);

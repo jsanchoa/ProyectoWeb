@@ -130,7 +130,8 @@
               th:object="${cita}"
               class="was-validated">
 
-            <input type="hidden" th:field="*{cliente.nombre}">
+            <input type="hidden" name="idCita" th:field="*{idCita}"/>>
+            <input type="hidden" name="idCliente" th:field="*{cliente.idCliente}"/>>
 
             <div class="mb-3">
                 <fieldset disabled>

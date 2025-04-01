@@ -6,7 +6,6 @@ import com.proyecto.domain.Entrenador;
 import com.proyecto.domain.Entrenamiento;
 import com.proyecto.service.EntrenadorService;
 import java.util.List;
-import com.proyecto.dao.EntrenadorDao;
 import com.proyecto.service.EntrenamientoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

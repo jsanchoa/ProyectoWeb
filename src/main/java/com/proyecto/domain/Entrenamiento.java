@@ -15,15 +15,8 @@ public class Entrenamiento implements Serializable {
     @Column(name = "id_entrenamiento")
     private Long idEntrenamiento;
 
+    @Column(name = "capacidad")
     private int capacidadEntrenamiento;
-    
-    @ManyToOne
-    @JoinColumn(name = "id_tipo_entrenamiento")
-    private TipoEntrenamiento tipoEntrenamiento;
-
-    @ManyToOne
-    @JoinColumn(name = "id_horario")
-    private Horario horario;
     
     @ManyToOne
     @JoinColumn(name = "id_entrenador")

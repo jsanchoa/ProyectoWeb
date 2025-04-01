@@ -38,16 +38,19 @@
                                     <table class="table table-striped table-hover">
                                         <thead class="table-dark">
                                             <tr>
-                                                <th class="text-center">ID Cliente</th>
-                                                <th class="text-center">ID Entrenamiento</th>
-                                                <th class="text-center">ID Estado</th>
+                                                <th class="text-center">Cliente</th>
+                                                <th class="text-center">Tipo de Entrenamiento</th>
+                                                <th class="text-center">Horario</th>
+                                                <th class="text-center">Estado</th>
+                                                <th class="text-center"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr th:each="cita : ${citas}">
-                                                <td class="text-center">[[${cita.cliente.idCliente}]]</td>
-                                                <td class="text-center">[[${cita.entrenamiento.idEntrenamiento}]]</td>
-                                                <td class="text-center">[[${cita.estado.idEstado}]]</td>
+                                                <td class="text-center">[[${cita.cliente.cedula}]] - [[${cita.cliente.nombre}]]</td>
+                                                <td class="text-center">[[${cita.entrenamiento.tipoEntrenamiento.nombre}]]</td>
+                                                <td class="text-center">[[${cita.entrenamiento.horario.horario}]]</td>
+                                                <td class="text-center">[[${cita.estado.nombre}]]</td>
                                                 <td class="d-flex justify-content-center">
                                                     <a th:href="@{/citas/modificar/}+${cita.idCita}"
                                                        class="btn btn-success me-2 ms-2">

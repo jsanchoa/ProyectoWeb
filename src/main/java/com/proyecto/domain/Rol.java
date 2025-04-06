@@ -7,22 +7,23 @@ import java.io.Serializable;
 
 @Data
 @Entity
-@Table(name= "EstadosMembresia")
-public class EstadoMembresia implements Serializable {
+@Table(name= "Roles")
+public class Rol implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_estadoMemb")
-    private long idEstadoMembresia;
+    @Column(name="id_rol")
+    private Long idRol;
+
     private String nombre;
 
     @ManyToOne
     @JoinColumn(name = "id_estadoBDD")
     private EstadoBDD estadoBDD;
 
-    public EstadoMembresia() {}
+    public Rol() {}
 
-    public EstadoMembresia(String nombre) {
+    public Rol(String nombre) {
         this.nombre = nombre;
     }
 }

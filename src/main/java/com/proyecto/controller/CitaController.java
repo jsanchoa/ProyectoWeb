@@ -1,9 +1,9 @@
 package com.proyecto.controller;
-import com.proyecto.domain.Cliente;
 import com.proyecto.domain.Cita;
 import com.proyecto.domain.Entrenamiento;
-import com.proyecto.domain.Estado;
-import com.proyecto.service.ClienteService;
+import com.proyecto.domain.EstadoBDD;
+import com.proyecto.domain.Usuario;
+import com.proyecto.service.UsuarioService;
 import com.proyecto.service.CitaService;
 import com.proyecto.service.EntrenamientoService;
 import com.proyecto.service.EstadoService;
@@ -13,7 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import java.util.List;
 
 @Controller
@@ -25,7 +25,7 @@ public class CitaController {
     private CitaService citaService;
 
     @Autowired
-    private ClienteService clienteService;
+    private UsuarioService usuarioService;
 
     @Autowired
     private EntrenamientoService entrenamientoService;
@@ -45,9 +45,9 @@ public class CitaController {
     public String citaAgregar(Model model) {
         model.addAttribute("cita", new Cita());
 
-        List<Cliente> listaClientes = clienteService.getClientes(false);
+        List<Usuario> listaClientes = usuarioService.getUsuarios(false);
         List<Entrenamiento> listaEntrenamientos = entrenamientoService.getEntrenamiento(false);
-        List<Estado> listaEstados = estadoService.getListaEstados();
+        List<EstadoBDD> listaEstados = estadoService.getListaEstados();
 
         model.addAttribute("clientes", listaClientes);
         model.addAttribute("entrenamientos", listaEntrenamientos);
@@ -72,9 +72,9 @@ public class CitaController {
     public String clienteModifica(Cita cita, Model model) {
 
         cita = citaService.getCita(cita);
-        List<Cliente> listaClientes = clienteService.getClientes(false);
+        List<Usuario> listaClientes = usuarioService.getUsuarios(false);
         List<Entrenamiento> listaEntrenamientos = entrenamientoService.getEntrenamiento(false);
-        List<Estado> listaEstados = estadoService.getListaEstados();
+        List<EstadoBDD> listaEstados = estadoService.getListaEstados();
 
         model.addAttribute("cita", cita);
         model.addAttribute("clientes", listaClientes);

@@ -19,4 +19,9 @@ public class EstadoMembresiaServiceImpl implements EstadoMembresiaService{
         var lista = estadoMembresiaDao.findAll();
         return lista;
     }
+
+    @Override
+    public EstadoMembresia getEstadoMembresia(int idEstadoMembresia) {
+        return estadoMembresiaDao.findByidEstadoMembresia(idEstadoMembresia);
+    }
 }

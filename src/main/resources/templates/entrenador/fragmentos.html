@@ -36,26 +36,26 @@
                             <table class="table table-striped table-hover">
                                 <thead class="table-dark">
                                 <tr>
+                                    <th class="text-center">ID</th>
                                     <th class="text-center">Nombre</th>
+                                    <th class="text-center">Apellido</th>
                                     <th class="text-center">Correo</th>
-                                    <th class="text-center">Teléfono</th>
-                                    <th class="text-center">Especialidad</th>
                                     <th class="text-center">Estado</th>
                                     <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr th:each="entrenador : ${entrenadores}">
+                                    <td class="text-center">[[${entrenador.idUsuario}]]</td>
                                     <td class="text-center">[[${entrenador.nombre}]]</td>
+                                    <td class="text-center">[[${entrenador.apellido}]]</td>
                                     <td class="text-center">[[${entrenador.correo}]]</td>
-                                    <td class="text-center">[[${entrenador.telefono}]]</td>
-                                    <td class="text-center">[[${entrenador.especialidad.nombre}]]</td>
-                                    <td class="text-center">[[${entrenador.estado.nombre}]]</td>
+                                    <td class="text-center">[[${entrenador.estadoBDD.nombre}]]</td>
                                     <td class="d-flex justify-content-center">
-                                        <a th:href="@{/entrenadores/modificar/}+${entrenador.idEntrenador}"
+                                        <a th:href="@{/entrenadores/modificar/}+${entrenador.idUsuario}"
                                            class="btn btn-success me-2 ms-2">
                                             <i class="fas fa-pencil"></i></a>
-                                        <a th:href="@{/entrenadores/eliminar/}+${entrenador.idEntrenador}"
+                                        <a th:href="@{/entrenadores/eliminar/}+${entrenador.idUsuario}"
                                            class="btn btn-danger me-2 ms-2">
                                             <i class="fas fa-trash"></i></a>
                                     </td>
@@ -81,17 +81,24 @@
               th:object="${entrenador}"
               class="was-validated"
               enctype="multipart/form-data">
+
+            <input type="hidden" th:field="*{rol.idRol}" value="2" />
+            <input type="hidden" th:field="*{tipoUsuario.idTipoUsuario}" value="2" />
+
             <div class="row mb-3">
+
                 <div class="col">
-                    <label for="cedula" class="form-label">Cédula</label>
+                    <label for="nombre" class="form-label">Nombre</label>
                     <input type="text" class="form-control"
-                           name="cedula" th:field="*{cedula}" id="cedula" placeholder="Ingrese su cédula">
+                           name="nombre" th:field="*{nombre}" id="nombre" placeholder="Ingrese su nombre">
                 </div>
+
                 <div class="col">
-                    <label for="nombre" class="form-label">Nombre completo</label>
-                    <input type="text" name="nombre" th:field="*{nombre}" class="form-control" id="nombre"
-                           placeholder="Ingrese su nombre">
+                    <label for="apellido" class="form-label">Apellidos</label>
+                    <input type="text" name="apellido" th:field="*{apellido}" class="form-control" id="apellido"
+                           placeholder="Ingrese su apellido">
                 </div>
+
             </div>
 
             <div class="row mb-3">
@@ -100,27 +107,11 @@
                     <input type="email" name="correo" th:field="*{correo}" class="form-control" id="correo"
                            placeholder="Ingrese su correo">
                 </div>
-                <div class="col">
-                    <label for="telefono" class="form-label">Número de teléfono</label>
-                    <input type="tel" name="telefono" th:field="*{telefono}" class="form-control" id="telefono"
-                           placeholder="Ingrese su teléfono">
-                </div>
             </div>
 
             <div class="mb-3">
-                <label for="especialidad" class="form-label">Especialidad</label>
-                <select class="form-select" th:field="*{especialidad}">
-                    <option value="" selected>Seleccione una opción</option>
-                    <option th:each="especialidad : ${especialidades}"
-                            th:value="${especialidad.idEspecialidad}"
-                            th:text="${especialidad.nombre}">
-                    </option>
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label for="estados" class="form-label">Estado</label>
-                <select class="form-select" th:field="*{estado}">
+                <label for="estado" class="form-label">Estado</label>
+                <select class="form-select" th:field="*{estadoBDD}">
                     <option value="" selected>Seleccione una opción</option>
                     <option th:each="estado : ${estados}"
                             th:value="${estado.idEstado}"
@@ -144,24 +135,23 @@
               th:object="${entrenador}"
               class="was-validated"
               enctype="multipart/form-data">
-            <input type="hidden" name="idEntrenador" th:field="*{idEntrenador}"/>
+            <input type="hidden" name="idEntrenador" th:field="*{idUsuario}"/>
+            <input type="hidden" name="idtipoUsuario" th:field="*{tipoUsuario.idTipoUsuario}"/>
+            <input type="hidden" name="idRol" th:field="*{rol.idRol}"/>
 
-            <input type="hidden" th:field="*{cedula}">
-            <input type="hidden" th:field="*{especialidad.idEspecialidad}">
             <div class="row mb-3">
-                <fieldset disabled>
-                    <div class="col">
-                        <label for="cedula" class="form-label">Cedula</label>
-                        <input type="text" name="cedula" th:field="*{cedula}" class="form-control" id="cedula">
-                    </div>
-                </fieldset>
+                <div class="col">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" name="nombre" th:field="*{nombre}" class="form-control" id="nombre"
+                           placeholder="Ingrese su nombre">
+                </div>
             </div>
 
             <div class="row mb-3">
                 <div class="col">
-                    <label for="nombre" class="form-label">Nombre completo</label>
-                    <input type="text" name="nombre" th:field="*{nombre}" class="form-control" id="nombre"
-                           placeholder="Ingrese su nombre">
+                    <label for="apellido" class="form-label">Apellidos</label>
+                    <input type="text" name="apellido" th:field="*{apellido}" class="form-control" id="apellido"
+                           placeholder="Ingrese su apellido">
                 </div>
             </div>
 
@@ -171,32 +161,12 @@
                     <input type="email" name="correo" th:field="*{correo}" class="form-control" id="correo"
                            placeholder="Ingrese su correo">
                 </div>
-                <div class="col">
-                    <label for="telefono" class="form-label">Número de teléfono</label>
-                    <input type="tel" name="telefono" th:field="*{telefono}" class="form-control" id="telefono"
-                           placeholder="Ingrese su teléfono">
-                </div>
-            </div>
-
-
-            <div class="mb-3">
-                <fieldset disabled>  <!-- Deshabilita la selección -->
-                    <label for="especialidad" class="form-label">Especialidad</label>
-                    <select class="form-select" id="especialidad" th:field="*{especialidad.idEspecialidad}">
-                        <option th:each="especialidad : ${especialidades}"
-                                th:value="${especialidad.idEspecialidad}"
-                                th:text="${especialidad.nombre}">
-                        </option>
-                    </select>
-                </fieldset>
-                <!-- Campo oculto para enviar el valor de la especialidad seleccionada -->
-                <input type="hidden" th:field="*{especialidad.idEspecialidad}">
             </div>
 
 
             <div class="mb-3">
                 <label for="estados" class="form-label">Estado</label>
-                <select class="form-select" th:field="*{estado}">
+                <select class="form-select" th:field="*{estadoBDD}">
                     <option value="" selected>Seleccione una opción</option>
                     <option th:each="estado : ${estados}"
                             th:value="${estado.idEstado}"

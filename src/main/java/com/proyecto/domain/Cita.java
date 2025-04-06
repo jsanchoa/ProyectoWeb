@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Data
 @Entity
-@Table(name= "cita")
+@Table(name= "Citas")
 public class Cita implements Serializable {
 
     @Id
@@ -15,17 +15,19 @@ public class Cita implements Serializable {
     @Column(name = "id_cita")
     private Long idCita;
 
+    /*
     @ManyToOne
     @JoinColumn(name = "id_entrenamiento")
     private Entrenamiento entrenamiento;
+    */
 
     @ManyToOne
-    @JoinColumn(name = "id_cliente")
-    private Cliente cliente;
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
 
     @ManyToOne
     @JoinColumn(name = "id_estado")
-    private Estado estado;
+    private EstadoBDD estado;
 
     public Cita() {
     }

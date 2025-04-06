@@ -1,7 +1,7 @@
 package com.proyecto.service.impl;
 
 import com.proyecto.dao.EstadoDao;
-import com.proyecto.domain.Estado;
+import com.proyecto.domain.EstadoBDD;
 import com.proyecto.service.EstadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,8 +17,13 @@ public class EstadoServiceImpl implements EstadoService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Estado> getListaEstados() {
+    public List<EstadoBDD> getListaEstados() {
         var lista = estadoDao.findAll();
         return lista;
+    }
+
+    @Override
+    public EstadoBDD getEstadoBDD(int idEstadoBDD) {
+        return estadoDao.getReferenceById((long) idEstadoBDD);
     }
 }

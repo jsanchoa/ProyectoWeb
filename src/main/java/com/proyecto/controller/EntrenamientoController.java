@@ -1,11 +1,11 @@
 package com.proyecto.controller;
 
 import com.proyecto.domain.Entrenamiento;
-import com.proyecto.domain.Estado;
-import com.proyecto.domain.Entrenador;
+import com.proyecto.domain.EstadoBDD;
+import com.proyecto.domain.Usuario;
 import com.proyecto.service.EntrenamientoService;
 import com.proyecto.service.EstadoService;
-import com.proyecto.service.EntrenadorService;
+import com.proyecto.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +26,7 @@ public class EntrenamientoController {
     private EstadoService estadoService;
 
     @Autowired
-    private EntrenadorService entrenadorService;
+    private UsuarioService usuarioService;
 
     @RequestMapping("/listado")
     public String listarEntrenamientos(Model model) {
@@ -39,8 +39,8 @@ public class EntrenamientoController {
     public String agregarEntrenamiento(Model model) {
         model.addAttribute("entrenamiento", new Entrenamiento());
 
-        List<Entrenador> listaEntrenadores = entrenadorService.getEntrenador(false);
-        List<Estado> listaEstados = estadoService.getListaEstados();
+        List<Usuario> listaEntrenadores = usuarioService.getUsuarios(false);
+        List<EstadoBDD> listaEstados = estadoService.getListaEstados();
 
         model.addAttribute("entrenadores", listaEntrenadores);
         model.addAttribute("estados", listaEstados);
@@ -64,8 +64,8 @@ public class EntrenamientoController {
     public String modificarEntrenamiento(Entrenamiento entrenamiento, Model model) {
         entrenamiento = entrenamientoService.getEntrenamiento(entrenamiento);
 
-        List<Entrenador> listaEntrenadores = entrenadorService.getEntrenador(false);
-        List<Estado> listaEstados = estadoService.getListaEstados();
+        List<Usuario> listaEntrenadores = usuarioService.getUsuarios(false);
+        List<EstadoBDD> listaEstados = estadoService.getListaEstados();
 
         model.addAttribute("entrenadores", listaEntrenadores);
         model.addAttribute("estados", listaEstados);

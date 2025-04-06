@@ -1,10 +1,12 @@
 package com.proyecto.service;
 
-import com.proyecto.domain.Estado;
+import com.proyecto.domain.EstadoBDD;
 
 import java.util.List;
 
 public interface EstadoService {
 
-    public List<Estado> getListaEstados();
+    public List<EstadoBDD> getListaEstados();
+
+    public EstadoBDD getEstadoBDD(int idEstadoBDD);
 }

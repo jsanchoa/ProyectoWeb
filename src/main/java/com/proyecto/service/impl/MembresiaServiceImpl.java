@@ -1,5 +1,6 @@
 package com.proyecto.service.impl;
 import com.proyecto.dao.MembresiaDao;
+import com.proyecto.domain.Cita;
 import com.proyecto.domain.Membresia;
 import com.proyecto.service.MembresiaService;
 import java.util.List;
@@ -18,5 +19,15 @@ public class MembresiaServiceImpl implements MembresiaService{
     public List<Membresia> getListaMembresias() {
         var lista = membresiaDao.findAll();
         return lista;
+    }
+
+    @Override
+    public void save(Membresia membresia) {
+        membresiaDao.save(membresia);
+    }
+
+    @Override
+    public void delete(Membresia membresia) {
+        membresiaDao.delete(membresia);
     }
 }

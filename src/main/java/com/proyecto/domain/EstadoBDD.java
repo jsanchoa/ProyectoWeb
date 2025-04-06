@@ -7,21 +7,18 @@ import java.io.Serializable;
 
 @Data
 @Entity
-@Table(name= "especialidad")
-public class Especialidad implements Serializable {
+@Table(name= "EstadosBDD")
+public class EstadoBDD implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_especialidad")
-    private int idEspecialidad;
+    @Column(name = "id_estadoBDD")
+    private long idEstado;
     private String nombre;
 
-    public Especialidad() {
-    }
+    public EstadoBDD() {}
 
-    public Especialidad(String nombre) {
+    public EstadoBDD(String nombre) {
         this.nombre = nombre;
     }
-
-
 }

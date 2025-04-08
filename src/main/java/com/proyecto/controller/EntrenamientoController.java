@@ -1,11 +1,9 @@
 package com.proyecto.controller;
 
-import com.proyecto.domain.Entrenamiento;
-import com.proyecto.domain.EstadoBDD;
-import com.proyecto.domain.Usuario;
-import com.proyecto.service.EntrenamientoService;
-import com.proyecto.service.EstadoService;
-import com.proyecto.service.UsuarioService;
+import com.proyecto.dao.EstadoInvDao;
+import com.proyecto.dao.RutinaDao;
+import com.proyecto.domain.*;
+import com.proyecto.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +26,15 @@ public class EntrenamientoController {
     @Autowired
     private UsuarioService usuarioService;
 
+    @Autowired
+    private TipoRutinaService tipoRutinaService;
+
+    @Autowired
+    private HorariosService horariosService;
+
+    @Autowired
+    private EstadoInvService estadoInvService;
+
     @RequestMapping("/listado")
     public String listarEntrenamientos(Model model) {
         List<Entrenamiento> listaEntrenamientos = entrenamientoService.getEntrenamiento(false);
@@ -39,11 +46,18 @@ public class EntrenamientoController {
     public String agregarEntrenamiento(Model model) {
         model.addAttribute("entrenamiento", new Entrenamiento());
 
-        List<Usuario> listaEntrenadores = usuarioService.getUsuarios(false);
+        List<TipoRutina> listaRutinas = tipoRutinaService.getTipoRutina();
+        List<Usuario> listaEntrenadores = usuarioService.findByTipoUsuario_IdTipoUsuario(2);
+        List<Horario> listaHorarios = horariosService.getListaHorarios();
         List<EstadoBDD> listaEstados = estadoService.getListaEstados();
+        List<EstadoInventario> listaEstadosInventario = estadoInvService.getListaEstadosInventario();
 
+
+        model.addAttribute("rutinas", listaRutinas);
+        model.addAttribute("horarios", listaHorarios);
         model.addAttribute("entrenadores", listaEntrenadores);
         model.addAttribute("estados", listaEstados);
+        model.addAttribute("estadosInv", listaEstadosInventario);
 
         return "entrenamiento/agregar";
     }
@@ -64,11 +78,17 @@ public class EntrenamientoController {
     public String modificarEntrenamiento(Entrenamiento entrenamiento, Model model) {
         entrenamiento = entrenamientoService.getEntrenamiento(entrenamiento);
 
-        List<Usuario> listaEntrenadores = usuarioService.getUsuarios(false);
         List<EstadoBDD> listaEstados = estadoService.getListaEstados();
+        List<TipoRutina> listaRutinas = tipoRutinaService.getTipoRutina();
+        List<Usuario> listaEntrenadores = usuarioService.findByTipoUsuario_IdTipoUsuario(2);
+        List<Horario> listaHorarios = horariosService.getListaHorarios();
+        List<EstadoInventario> listaEstadosInventario = estadoInvService.getListaEstadosInventario();
 
+        model.addAttribute("horarios", listaHorarios);
+        model.addAttribute("estadosInv", listaEstadosInventario);
         model.addAttribute("entrenadores", listaEntrenadores);
         model.addAttribute("estados", listaEstados);
+        model.addAttribute("rutinas", listaRutinas);
         model.addAttribute("entrenamiento", entrenamiento);
 
         return "entrenamiento/modifica";

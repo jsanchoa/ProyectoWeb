@@ -19,6 +19,7 @@ public class Horario implements Serializable{
 
     private LocalTime horaInicio;
     private LocalTime horaFin;
+    private String dia;
 
     @ManyToOne
     @JoinColumn(name = "id_estadoBDD")
@@ -27,7 +28,11 @@ public class Horario implements Serializable{
     public Horario() {
     }
 
-    public Horario(LocalTime horaInicio, LocalTime horaFin) {}
+    public Horario(LocalTime horaInicio, LocalTime horaFin, String dia) {
+        this.horaInicio = horaInicio;
+        this.horaFin = horaFin;
+        this.dia = dia;
+    }
 
 
 

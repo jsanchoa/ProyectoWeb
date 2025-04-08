@@ -4,7 +4,7 @@ import com.proyecto.domain.TipoRutina;
 
 import java.util.List;
 
-public interface RutinaService {
+public interface TipoRutinaService {
 
     public List<TipoRutina> getTipoRutina();
 }

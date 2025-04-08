@@ -19,9 +19,6 @@ public class EntrenamientoServiceImpl implements EntrenamientoService {
     @Transactional(readOnly = true)
     public List<Entrenamiento> getEntrenamiento(boolean activos) {
         var lista = entrenamientoDao.findAll();
-        if (activos) {
-            lista.removeIf(e -> e.getEstado().getIdEstado() == 2);
-        }
         return lista;
     }
     

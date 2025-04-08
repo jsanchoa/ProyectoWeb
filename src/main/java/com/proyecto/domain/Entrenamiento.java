@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Entity
@@ -17,7 +18,7 @@ public class Entrenamiento implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "id_tipoRutina")
-    private TipoRutina idTipoRutina;
+    private TipoRutina tipoRutina;
 
     @Column(name = "capacidad")
     private int capacidadEntrenamiento;
@@ -28,15 +29,18 @@ public class Entrenamiento implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "id_usuario")
-    private Usuario usuario;
+    private Usuario entrenador;
 
     @ManyToOne
     @JoinColumn(name = "id_estadoInv")
-    private EstadoInventario estadoinv;
+    private EstadoInventario estadoInventario;
 
     @ManyToOne
     @JoinColumn(name = "id_estadoBDD")
-    private EstadoBDD estado;
+    private EstadoBDD estadoBDD;
+
+    @ManyToMany(mappedBy = "entrenamientos")
+    private List<Cita> citas;
     
     public Entrenamiento() {
     }

@@ -84,6 +84,7 @@
                       class="was-validated"
                       enctype="multipart/form-data">
 
+
                     <div class="mb-3">
                         <label for="tipoRutina" class="form-label">Tipo de Rutina</label>
                         <select class="form-select" th:field="*{tipoRutina}">
@@ -195,7 +196,7 @@
 
                     <div class="mb-3">
                         <label for="entrenador" class="form-label">Entrenador</label>
-                        <select class="form-select" th:field="*{entrenador}">
+                        <select class="form-select" th:field="*{entrenador.idUsuario}">
                             <option value="" selected>Seleccione un entrenador</option>
                             <option th:each="entrenador : ${entrenadores}"
                                     th:value="${entrenador.idUsuario}"

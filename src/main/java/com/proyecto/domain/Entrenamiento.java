@@ -39,8 +39,9 @@ public class Entrenamiento implements Serializable {
     @JoinColumn(name = "id_estadoBDD")
     private EstadoBDD estadoBDD;
 
-    @ManyToMany(mappedBy = "entrenamientos")
-    private List<Cita> citas;
+    @OneToMany(mappedBy = "entrenamiento", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<EntrenamientoCita> entrenamientoCitas;
+
     
     public Entrenamiento() {
     }

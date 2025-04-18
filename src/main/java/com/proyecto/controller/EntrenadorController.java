@@ -83,6 +83,7 @@ public class EntrenadorController {
         usuario = usuarioService.getUsuario(usuario);
         List<EstadoBDD> listaEstados = estadoService.getListaEstados();
 
+
         model.addAttribute("estados", listaEstados);
         model.addAttribute("entrenador", usuario);
 

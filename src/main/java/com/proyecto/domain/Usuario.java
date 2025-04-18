@@ -37,6 +37,13 @@ public class Usuario implements Serializable {
     @JoinColumn(name = "id_estadoBDD")
     private EstadoBDD estadoBDD;
 
+    @OneToMany(mappedBy = "entrenador", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Entrenamiento> entrenamientos;
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Cita> citas;
+    
+
     public Usuario() {}
 
     public Usuario(String nombre, String apellido, String correo, String contrasena) {

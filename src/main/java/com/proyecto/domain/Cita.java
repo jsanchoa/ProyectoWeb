@@ -24,13 +24,8 @@ public class Cita implements Serializable {
     @JoinColumn(name = "id_estadoBDD")
     private EstadoBDD estadoBDD;
 
-    @ManyToMany
-    @JoinTable(
-            name = "EntrenamientosCitas",
-            joinColumns = @JoinColumn(name = "id_cita"),
-            inverseJoinColumns = @JoinColumn(name = "id_entrenamiento")
-    )
-    private List<Entrenamiento> entrenamientos;
+    @OneToMany(mappedBy = "cita", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<EntrenamientoCita> entrenamientoCitas;
 
     public Cita() {
     }

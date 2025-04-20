@@ -14,9 +14,9 @@
 
 <body>
     <header th:fragment="header">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg" style="background-color: #4f285c;">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/">MetaFit</a>
+                <a class="navbar-brand text-white" href="/">MetaFit</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -24,26 +24,35 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" th:href="@{/entrenamientos/listado}">Entrenamientos</a>
+                            <a class="nav-link text-white" aria-current="page" th:href="@{/entrenamientos/listado}">Entrenamientos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" th:href="@{/entrenadores/listado}">Entrenadores</a>
+                            <a class="nav-link text-white" th:href="@{/entrenadores/listado}">Entrenadores</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" th:href="@{/clientes/listado}">Clientes</a>
+                            <a class="nav-link text-white" th:href="@{/clientes/listado}">Clientes</a>
                         </li>
 
                          <li class="nav-item">
-                          <a class="nav-link" th:href="@{/cita/listado}">Citas</a>
+                          <a class="nav-link text-white" th:href="@{/cita/listado}">Citas</a>
                         </li>
 <!--                        <li class="nav-item">-->
-<!--                            <a class="nav-link">Control de Acceso</a>-->
+<!--                            <a class="nav-link text-white">Control de Acceso</a>-->
 <!--                        </li>-->
                     </ul>
                 </div>
             </div>
         </nav>
-        <img src="../../images/Metafit.png" alt="Imagen de Header" style="width: 100%; height: auto;">
+        <img src="@{/images/Metafit.png}" alt="Imagen de Header" style="width: 100%; height: auto;">
     </header>
+    <footer th:fragment="footer" class="mt-5 p-2" style="background-color: #4f285c;">
+    <div class="container">
+        <div class="col">
+            <p class="lead text-center text-white">
+                &COPY; MetaFit
+            </p>
+        </div>
+    </div>
+</footer>
 </body>
 </html>

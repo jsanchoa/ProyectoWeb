@@ -52,4 +52,9 @@ public class Usuario implements Serializable {
         this.correo = correo;
         this.contrasena = contrasena;
     }
+    
+    @Override
+    public String toString() {
+        return this.nombre+" " +this.apellido; 
+    }
 }

@@ -26,6 +26,19 @@ public class Cita implements Serializable {
 
     @OneToMany(mappedBy = "cita", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EntrenamientoCita> entrenamientoCitas;
+    
+    @Transient //Solamente se almacena en memoria y no desde la bdd
+    private String tipoRutinaNombre;
+    
+    @Transient 
+    private Long entrenamientoId;
+    
+    public Entrenamiento getEntrenamiento() {
+        if (entrenamientoCitas != null && !entrenamientoCitas.isEmpty()) {
+            return entrenamientoCitas.get(0).getEntrenamiento();
+        }
+        return null;
+    }
 
     public Cita() {
     }

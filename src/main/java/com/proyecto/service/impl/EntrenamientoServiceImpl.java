@@ -5,6 +5,7 @@ import com.proyecto.domain.Entrenamiento;
 
 import java.util.List;
 import com.proyecto.service.EntrenamientoService;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,5 +39,11 @@ public class EntrenamientoServiceImpl implements EntrenamientoService {
     @Transactional
     public void delete(Entrenamiento entrenamiento) {
         entrenamientoDao.delete(entrenamiento);
+    }
+    
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<Entrenamiento> findById(Long id) {
+        return entrenamientoDao.findById(id);
     }
 }

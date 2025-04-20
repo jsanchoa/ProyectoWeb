@@ -1,6 +1,7 @@
 package com.proyecto.controller;
 import com.proyecto.domain.Cita;
 import com.proyecto.domain.Entrenamiento;
+import com.proyecto.domain.EntrenamientoCita;
 import com.proyecto.domain.EstadoBDD;
 import com.proyecto.domain.Usuario;
 import com.proyecto.service.UsuarioService;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/citas") //Prefijo
+@RequestMapping("/cita") //Prefijo
 public class CitaController {
 
 
@@ -32,13 +33,23 @@ public class CitaController {
 
     @Autowired
     private EstadoService estadoService;
-
+   
     @RequestMapping("/listado")
     public String index(Model model) {
         List<Cita> listaCitas = citaService.getCita();
+        
+        for (Cita cita : listaCitas) {
+            for (EntrenamientoCita entrenamientoCita : cita.getEntrenamientoCitas()) {
+                Entrenamiento entrenamiento = entrenamientoCita.getEntrenamiento();
+                //Trae el nombre de TipoRutina a cita para mostarlo en la tabla
+                if (entrenamiento.getTipoRutina() != null) {
+                    cita.setTipoRutinaNombre(entrenamiento.getTipoRutina().getNombre());
+                }
+            }
+        }
 
         model.addAttribute("citas", listaCitas);
-        return "/cita/listado";
+        return "cita/listado";
     }
 
     @RequestMapping("/agregar")
@@ -53,19 +64,19 @@ public class CitaController {
         model.addAttribute("entrenamientos", listaEntrenamientos);
         model.addAttribute("estados", listaEstados);
 
-        return "/cita/agregar";
+        return "cita/agregar";
     }
 
     @PostMapping("/guardar")
     public String citaGuardar(Cita cita) {
         citaService.save(cita);
-        return "redirect:/citas/listado";
+        return "redirect:/cita/listado";
     }
 
     @GetMapping("/eliminar/{idCita}")
     public String clienteEliminar(Cita cita) {
         citaService.delete(cita);
-        return "redirect:/citas/listado";
+        return "redirect:/cita/listado";
     }
 
     @GetMapping("/modificar/{idCita}")
@@ -81,6 +92,6 @@ public class CitaController {
         model.addAttribute("entrenamientos", listaEntrenamientos);
         model.addAttribute("estados", listaEstados);
 
-        return "/cita/modifica";
+        return "cita/modifica";
     }
 }

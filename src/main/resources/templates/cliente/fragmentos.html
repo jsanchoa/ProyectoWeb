@@ -13,9 +13,9 @@
 
 
                 <div class="row">
-                    <div class="col-md-3">
-                        <a th:href="@{/clientes/agregar}" class="btn btn-primary btn-block">
-                            <b>Crear</b>
+                    <div class="col-auto">
+                        <a th:href="@{/clientes/agregar}" class="btn btn-primary btn-block" style="background-color: #4f285c; border-color: #4f285c;">
+                            <b>Agregar cliente</b>
                         </a>
                     </div>
                 </div>
@@ -29,11 +29,12 @@
                     <div class="col-lg-10"> 
                         <div class="card">
                             <div class="card-header">
+                                <h5 class="text-center">Lista de Clientes</h5>
                             </div>
                             <div th:if="${clientes != null and !clientes.empty}">
                                 <div class="table-responsive"> 
                                     <table class="table table-striped table-hover">
-                                        <thead class="table-dark">
+                                        <thead style="background-color: #4f285c; color: white;">
                                             <tr>
                                                 <th class="text-center">ID</th>
                                                 <th class="text-center">Nombre</th>
@@ -58,10 +59,10 @@
                                                 <td class="text-center">[[${cliente.estadoBDD.nombre}]]</td>
                                                 <td class="d-flex justify-content-center">
                                                     <a th:href="@{/clientes/modificar/}+${cliente.idUsuario}"
-                                                       class="btn btn-success me-2 ms-2">
+                                                       class="btn btn-success me-2 ms-2" style="background-color: #9f356a; border-color: #9f356a;">
                                                         <i class="fas fa-pencil"></i></a>
                                                     <a th:href="@{/clientes/eliminar/}+${cliente.idUsuario}"
-                                                       class="btn btn-danger me-2 ms-2">
+                                                       class="btn btn-danger me-2 ms-2" style="background-color: #702d62; border-color: #702d62;">
                                                         <i class="fas fa-trash"></i></a>
                                                 </td>
                                             </tr>

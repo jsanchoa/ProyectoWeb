@@ -149,13 +149,8 @@
                     <input type="hidden" name="idCliente" th:field="*{idUsuario}"/>
                     <input type="hidden" name="idMembresia" th:field="*{membresia.idMembresia}"/>
                     <input type="hidden" name="idtipoUsuario" th:field="*{tipoUsuario.idTipoUsuario}"/>
-
-                    <input type="hidden" th:field="*{membresia.fechaInicio}"/>
                     <input type="hidden" th:field="*{membresia.tipoMembresia.idTipoMembresia}"/>
-                    <input type="hidden" th:field="*{membresia.estadoMembresia.idEstadoMembresia}"/>
-                    <input type="hidden" th:field="*{membresia.estadoBDD.idEstado}"/>
-                    <input type="hidden" th:field="*{membresia.fechaFinal}"/>
-
+                    
                     <div class="row mb-3">
                         <div class="col">
                             <label for="nombre" class="form-label">Nombre</label>
@@ -213,7 +208,17 @@
                             </option>
                         </select>
                     </div>
-
+                    <div class="mb-3">
+                        <label for="estadoMembresia" class="form-label">Estado de Membresía</label>
+                        <select name="membresia.estadoMembresia.idEstadoMembresia" class="form-select" required>
+                            <option value="" selected>Seleccione una opción</option>
+                            <option th:each="estado : ${estadosMembresia}"
+                                    th:value="${estado.idEstadoMembresia}"
+                                    th:text="${estado.nombre}"
+                                    th:selected="${estado.idEstadoMembresia == cliente.membresia.estadoMembresia.idEstadoMembresia}">
+                            </option>
+                        </select>
+                    </div>
 
                     <div class="text-center">
                         <button type="submit" class="btn btn-dark">Modificar</button>

@@ -1,6 +1,7 @@
 package com.proyecto.controller;
 
 import com.proyecto.dao.EstadoMembresiaDao;
+import com.proyecto.dao.TipoMembresiaDao;
 import com.proyecto.domain.*;
 import com.proyecto.service.*;
 import jakarta.transaction.Transactional;
@@ -18,6 +19,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/clientes") //Prefijo
 public class ClienteController {
+
     @Autowired
     private UsuarioService usuarioService;
 
@@ -32,7 +34,10 @@ public class ClienteController {
 
     @Autowired
     private EstadoMembresiaDao estadoMembresiaDao;
-    
+
+    @Autowired
+    private TipoMembresiaDao tipoMembresiaDao;
+
     @RequestMapping("/listado")
     public String index(Model model) {
         List<Usuario> listaClientes = usuarioService.findByTipoUsuario_IdTipoUsuario(1);
@@ -40,7 +45,7 @@ public class ClienteController {
         model.addAttribute("clientes", listaClientes);
         return "/cliente/listado";
     }
-    
+
     @RequestMapping("/agregar")
     public String clienteAgregar(Model model) {
         Usuario cliente = new Usuario();
@@ -58,32 +63,37 @@ public class ClienteController {
 
         return "/cliente/agregar";
     }
-    
+
     @PostMapping("/guardar")
     public String clienteGuardar(Usuario usuario) {
+        Membresia membresia = usuario.getMembresia();
 
-        membresiaService.save(usuario.getMembresia());  // Guarda la membresía
+        if (membresia != null) {
 
-        if (usuario.getMembresia().getFechaInicio() == null && usuario.getMembresia().getFechaFinal() == null) {
-            int cantidadDias = usuario.getMembresia().getTipoMembresia().getCantidadDias();
+            Long idTipo = membresia.getTipoMembresia().getIdTipoMembresia();
+            TipoMembresia tipoReal = tipoMembresiaDao.findById(idTipo).orElse(null);
 
-            LocalDate hoy = LocalDate.now();
-            LocalDate fechaFin = hoy.plusDays(cantidadDias);
+            if (tipoReal != null) {
 
-            usuario.getMembresia().setFechaInicio(hoy);
-            usuario.getMembresia().setFechaFinal(fechaFin);
+                LocalDate hoy = LocalDate.now();
+                int cantidadDias = tipoReal.getCantidadDias();
+                LocalDate fechaFin = hoy.plusDays(cantidadDias);
 
-            EstadoMembresia estadoMembresia = estadoMembresiaDao.findByidEstadoMembresia(1);
+                membresia.setTipoMembresia(tipoReal);
+                membresia.setFechaInicio(hoy);
+                membresia.setFechaFinal(fechaFin);
+            }
 
-            usuario.getMembresia().setEstadoMembresia(estadoMembresia);
-
-            EstadoBDD estado = estadoService.getEstadoBDD(1);
-
-            usuario.getMembresia().setEstadoBDD(estado);
-
+            if (membresia.getEstadoMembresia() == null || membresia.getEstadoMembresia().getIdEstadoMembresia() == 0) {
+                EstadoMembresia estadoPorDefecto = estadoMembresiaDao.findByidEstadoMembresia(1); // Activa
+                membresia.setEstadoMembresia(estadoPorDefecto);
+            }
+            membresia.setEstadoBDD(estadoService.getEstadoBDD(1));
         }
 
+        membresiaService.save(membresia);
         usuarioService.save(usuario);
+
         return "redirect:/clientes/listado";
     }
 
@@ -101,6 +111,7 @@ public class ClienteController {
         model.addAttribute("membresias", membresiaService.getListaMembresias());
         model.addAttribute("estados", estadoService.getListaEstados());
         model.addAttribute("cliente", usuario);
+        model.addAttribute("estadosMembresia", estadoMembresiaDao.findAll());
 
         return "/cliente/modifica";
     }

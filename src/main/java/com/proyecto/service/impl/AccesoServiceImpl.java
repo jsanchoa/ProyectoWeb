@@ -15,8 +15,8 @@ public class AccesoServiceImpl implements AccesoService {
 private UsuarioDao usuarioDao;
 
 @Override
-public List<Usuario> buscarClientesPorNombre(String nombre) {
-    return usuarioDao.findByNombre(nombre);
+public List<Usuario> buscarClientesPorNombre(String nombre, int idTipoUsuario) {
+    return usuarioDao.findByNombreAndTipoUsuario_IdTipoUsuario(nombre, idTipoUsuario);
  }
 
 @Override

@@ -7,7 +7,7 @@ import java.util.List;
 public interface UsuarioDao extends JpaRepository<Usuario, Long> {
 
     public List<Usuario> findByTipoUsuario_IdTipoUsuario(int tipoUsuario);
-    
-    public List<Usuario> findByNombre(String nombre);
+
+    public List<Usuario> findByNombreAndTipoUsuario_IdTipoUsuario(String nombre, int idTipoUsuario);
 
 }

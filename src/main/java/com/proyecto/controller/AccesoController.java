@@ -25,16 +25,15 @@ public class AccesoController {
 
     @GetMapping("/verificar")
     public String verificarAcceso(String nombreCliente, Model model) {
-    List<Usuario> usuarios = accesoService.buscarClientesPorNombre(nombreCliente);
+    List<Usuario> usuarios = accesoService.buscarClientesPorNombre(nombreCliente, 1);
 
     if (usuarios.isEmpty()) {
         model.addAttribute("mensaje", "No se encontró ningún cliente con ese nombre.");
     } else if (usuarios.size() == 1) {
-        // Redirige directamente al detalle si solo hay uno
+
         Long id = usuarios.get(0).getIdUsuario();
         return "redirect:/acceso/detalle?idUsuario=" + id;
     } else {
-        // Muestra lista de candidatos
         model.addAttribute("usuarios", usuarios);
     }
 

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface AccesoService {
     
-List<Usuario> buscarClientesPorNombre(String nombre);
+List<Usuario> buscarClientesPorNombre(String nombre, int idTipoUsuario);
 
 Usuario buscarClientePorId(Long id);
 

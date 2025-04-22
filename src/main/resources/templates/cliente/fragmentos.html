@@ -147,9 +147,8 @@
                       enctype="multipart/form-data">
 
                     <input type="hidden" name="idCliente" th:field="*{idUsuario}"/>
-                    <input type="hidden" name="idMembresia" th:field="*{membresia.idMembresia}"/>
+                    <input type="hidden" name="idMembresia" th:field="*{membresia}"/>
                     <input type="hidden" name="idtipoUsuario" th:field="*{tipoUsuario.idTipoUsuario}"/>
-                    <input type="hidden" th:field="*{membresia.tipoMembresia.idTipoMembresia}"/>
                     
                     <div class="row mb-3">
                         <div class="col">
@@ -210,12 +209,11 @@
                     </div>
                     <div class="mb-3">
                         <label for="estadoMembresia" class="form-label">Estado de Membresía</label>
-                        <select name="membresia.estadoMembresia.idEstadoMembresia" class="form-select" required>
+                        <select class="form-select" th:field="*{membresia.estadoMembresia}" required>
                             <option value="" selected>Seleccione una opción</option>
                             <option th:each="estado : ${estadosMembresia}"
                                     th:value="${estado.idEstadoMembresia}"
-                                    th:text="${estado.nombre}"
-                                    th:selected="${estado.idEstadoMembresia == cliente.membresia.estadoMembresia.idEstadoMembresia}">
+                                    th:text="${estado.nombre}">
                             </option>
                         </select>
                     </div>

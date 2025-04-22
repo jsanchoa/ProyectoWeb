@@ -66,9 +66,10 @@ public class ClienteController {
 
     @PostMapping("/guardar")
     public String clienteGuardar(Usuario usuario) {
-        Membresia membresia = usuario.getMembresia();
+        Membresia membresia = usuario.getMembresia(); //NO tiene membresia
+        System.out.println("la membresia:" + membresia.toString());
 
-        if (membresia != null) {
+        if (membresia.getIdMembresia() == null) { //Pregunta si tiene membresia
 
             Long idTipo = membresia.getTipoMembresia().getIdTipoMembresia();
             TipoMembresia tipoReal = tipoMembresiaDao.findById(idTipo).orElse(null);

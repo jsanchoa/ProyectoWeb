@@ -29,12 +29,14 @@ public UserDetailsService users() {
     return new InMemoryUserDetailsManager(admin);
 }
 
+
 @Bean
 public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
         .authorizeHttpRequests((request) -> request
-            .requestMatchers("/", "/index", "/js/**", "/webjars/**").permitAll()
+            .requestMatchers("/login","/js/**", "/webjars/**").permitAll()
             .requestMatchers(
+                    "/", "/index",
                 "/entrenadores/**", "/entrenamientos/**",
                 "/clientes/**", "/citas/**",
                 "/acceso/**", "/entrenamientos/agregar/**",
@@ -43,13 +45,16 @@ public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Excepti
                 "/entrenadores/agregar/**", "/entrenadores/listado", "/entrenadores/eliminar/**",
                 "/clientes/agregar/**",
                 "/clientes/modificar/**", "/clientes/listado",
+                "/cita/**",
                 "/cita/listado", "/cita/agregar/**", "/cita/modificar/**",
                 "/cita/eliminar/**", "/acceso/listado", "/images/**"
             ).hasRole("ADMIN") // Solo ADMIN
         )
         .formLogin((form) -> form
             .loginPage("/login")
+            .defaultSuccessUrl("/", true)
             .permitAll()
+
         )
         .logout((logout) -> logout.permitAll());
 

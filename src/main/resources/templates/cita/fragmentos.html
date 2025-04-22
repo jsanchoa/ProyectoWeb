@@ -99,8 +99,8 @@
                     <select class="form-select" th:field="*{entrenamientoId}">
                         <option value="" selected>Seleccione un entrenamiento</option>
                         <option th:each="entrenamiento : ${entrenamientos}"
-                                th:value="${entrenamiento.idEntrenamiento}"
-                                th:text="${entrenamiento.tipoRutina.nombre}">
+                                th:value="${entrenamiento.idEntrenamiento} "
+                                th:text="${entrenamiento.tipoRutina.nombre} + ' - ' + ${entrenamiento.horario.dia}  + ' - ' + ${entrenamiento.horario.horaInicio}">
                         </option>
                     </select>
                 </div>

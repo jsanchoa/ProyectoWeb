@@ -11,4 +11,4 @@ Incluye:
 - Gestión de Membresias
 - Gestión de Entrenamientos
 - Gestión de Entrenadores 
-
+- Gestión de Login (para el administrador)
